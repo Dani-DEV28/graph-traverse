@@ -28,6 +28,43 @@ public class Traverse {
     v45.neighbors = new ArrayList<>(List.of(v23));
     v23.neighbors = new ArrayList<>(List.of());
     v67.neighbors = new ArrayList<>(List.of(v91));
+
+    // traverse(v3);
+    System.out.println(sum(v3));
   }
 
+  public static int sum(Vertex<Integer> current){
+    Set<Vertex<Integer>> visted = new HashSet<>();
+    return sum(current, visted);
+  }
+
+  public static int sum(Vertex<Integer> current, Set<Vertex<Integer>> visted){
+    if(current == null || visted.contains(current))return 0;
+
+    visted.add(current);
+    int total = 0;
+    total += current.data;
+
+    for(Vertex<Integer> neighbor : current.neighbors){
+      total += sum(neighbor, visted);
+    }
+
+    return total;
+  }
+
+  public static <T> void traverse(Vertex<?> current){
+    Set<Vertex<?>> visted = new HashSet<>();
+    traverse(current, visted);
+  }
+
+  public static void traverse(Vertex<?> current, Set<Vertex<?>> visted){
+    if(current == null || visted.contains(current))return;
+
+    System.out.println(current.data);
+    visted.add(current);
+
+    for(Vertex<?> neighbor : current.neighbors){
+      traverse(neighbor, visted);
+    }
+  }
 }
